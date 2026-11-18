@@ -31,7 +31,7 @@ jobs:
         run: |
           for secret in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
             if [ -z "${!secret}" ]; then
-              echo "::error::Add the $secret repository secret in Settings > Secrets and variables > Actions. See DEPLOYMENT.md."
+              echo "::error::Add the $secret repository secret in Settings > Secrets and variables > Actions."
               exit 1
             fi
           done
