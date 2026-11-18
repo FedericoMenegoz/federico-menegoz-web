@@ -1,0 +1,112 @@
+.mode-selector {
+  font-size: 11px;
+  line-height: 1.6;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: .045em;
+}
+
+.mode-label, .theme-label { transition: color 180ms ease; }
+.mode-label-dev, .theme-label-dark { color: var(--foreground); }
+.mode-label-music, .theme-label-light { color: var(--muted); }
+.theme-label { display: inline-flex; }
+.theme-label svg { width: 18px; height: 18px; }
+.mode-dial {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.mode-scale {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--scale);
+}
+
+.scale-dev, .scale-dark { stroke: var(--foreground); }
+.scale-music, .scale-light { stroke: var(--scale); }
+.mode-selector:has(:checked) .scale-dev,
+.theme-selector:has(:checked) .scale-dark { stroke: var(--scale); }
+.mode-selector:has(:checked) .scale-music,
+.theme-selector:has(:checked) .scale-light { stroke: var(--foreground); }
+
+.mode-knob {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--knob-edge);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, var(--knob-center), var(--knob-edge) 75%);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 18%), inset 0 0 0 2px var(--knob-rim);
+  transform: rotate(-55deg);
+  transition: transform 240ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.mode-knob::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--knob-line);
+  border-radius: 50%;
+}
+
+.mode-knob::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 12px;
+  border-radius: 1px;
+  background: var(--knob-indicator);
+}
+
+.mode-selector input:checked + .mode-dial .mode-knob { transform: rotate(55deg); }
+.mode-selector:has(:checked) .mode-label-dev,
+.theme-selector:has(:checked) .theme-label-dark { color: var(--muted); }
+.mode-selector:has(:checked) .mode-label-music,
+.theme-selector:has(:checked) .theme-label-light { color: var(--foreground); }
+.mode-selector input:focus-visible + .mode-dial { outline: 2px solid var(--foreground); outline-offset: 5px; }
+button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 0 10px 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+button:hover { color: var(--foreground); }
+.motion-toggle, .motion-toggle:hover { flex-shrink: 0; padding: 0; color: #fff; }
+:root[data-theme="light"] .motion-toggle { color: #000; }
+#motion-icon { display: inline-flex; }
+#motion-icon svg { width: 14px; height: 14px; }
+.motion-play, .is-paused .motion-pause { display: none; }
+.is-paused .motion-play { display: block; }
+@media (max-width: 480px) {
+  .mode-selector { font-size: 10px; gap: 6px; }
+  .mode-dial { width: 48px; height: 48px; }
+  .mode-knob { width: 34px; height: 34px; }
+  .mode-knob::after { top: 4px; height: 9px; }
+  .theme-label svg { width: 14px; height: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mode-label, .theme-label, .mode-knob { transition: none; }
+}
